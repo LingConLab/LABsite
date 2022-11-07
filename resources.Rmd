@@ -211,7 +211,7 @@ The spoken corpora are developed in cooperation with researchers from other univ
             <h2>Bashkortostan Russian</h2>
         </header>    
         <div class="content">
-          <p> Tokens: ND
+          <p> Tokens: 93&nbsp;127
             <form action="http://lingconlab.ru/BashkirRus/" target="_blank">
               <button class="button" type="submit">View</button>
             </form>
