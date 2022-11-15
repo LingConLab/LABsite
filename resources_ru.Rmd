@@ -21,12 +21,6 @@ library(tidyverse)
 
 # load data
 fe <- read_tsv("./data/corpora_villages.tsv") # example dataset
-fe$n_word_int = sub('&nbsp;', '', fe$n_tokens)
-fe$n_word_int = as.integer(sub('~', '', fe$n_word_int))
-q1 = quantile(fe$n_word_int, probs = 0.25)
-q3 = quantile(fe$n_word_int, probs = 0.75)
-
-fe$color = ifelse(fe$n_word_int < q1, 'gry', ifelse(fe$n_word_int > q3, 'pnk', 'wh'))
 ```
 
 ## Диалектные корпуса
@@ -35,6 +29,13 @@ fe$color = ifelse(fe$n_word_int < q1, 'gry', ifelse(fe$n_word_int > q3, 'pnk', '
 fe %>% 
   filter(subtype == "dialectal") %>% 
   distinct(name, .keep_all=TRUE)-> fe_dialectal
+
+fe_dialectal$n_word_int = sub('&nbsp;', '', fe_dialectal$n_tokens)
+fe_dialectal$n_word_int = as.integer(sub('~', '', fe_dialectal$n_word_int))
+q1 = quantile(fe_dialectal$n_word_int, probs = 0.25)
+q3 = quantile(fe_dialectal$n_word_int, probs = 0.75)
+
+fe_dialectal$color = ifelse(fe_dialectal$n_word_int < q1, 'gry', ifelse(fe_dialectal$n_word_int > q3, 'pnk', 'wh'))
 ```
 
 ```{r results="asis"}
@@ -65,6 +66,13 @@ cat('</div>')
 fe %>% 
   filter(subtype == "bilingual") %>% 
   distinct(name, .keep_all=TRUE)-> fe_dialectal
+
+fe_dialectal$n_word_int = sub('&nbsp;', '', fe_dialectal$n_tokens)
+fe_dialectal$n_word_int = as.integer(sub('~', '', fe_dialectal$n_word_int))
+q1 = quantile(fe_dialectal$n_word_int, probs = 0.25)
+q3 = quantile(fe_dialectal$n_word_int, probs = 0.75)
+
+fe_dialectal$color = ifelse(fe_dialectal$n_word_int < q1, 'gry', ifelse(fe_dialectal$n_word_int > q3, 'pnk', 'wh'))
 ```
 
 ```{r results="asis"}
@@ -95,6 +103,13 @@ cat('</div>')
 fe %>% 
   filter(subtype == "minority") %>% 
   distinct(name, .keep_all=TRUE)-> fe_dialectal
+
+fe_dialectal$n_word_int = sub('&nbsp;', '', fe_dialectal$n_tokens)
+fe_dialectal$n_word_int = as.integer(sub('~', '', fe_dialectal$n_word_int))
+q1 = quantile(fe_dialectal$n_word_int, probs = 0.25)
+q3 = quantile(fe_dialectal$n_word_int, probs = 0.75)
+
+fe_dialectal$color = ifelse(fe_dialectal$n_word_int < q1, 'gry', ifelse(fe_dialectal$n_word_int > q3, 'pnk', 'wh'))
 ```
 
 ```{r results="asis"}
@@ -137,6 +152,13 @@ cat('</div>')
 fe %>% 
   filter(subtype == "dictionary") %>% 
   distinct(name, .keep_all=TRUE)-> fe_dialectal
+
+fe_dialectal$n_word_int = sub('&nbsp;', '', fe_dialectal$n_tokens)
+fe_dialectal$n_word_int = as.integer(sub('~', '', fe_dialectal$n_word_int))
+q1 = quantile(fe_dialectal$n_word_int, probs = 0.25)
+q3 = quantile(fe_dialectal$n_word_int, probs = 0.75)
+
+fe_dialectal$color = ifelse(fe_dialectal$n_word_int < q1, 'gry', ifelse(fe_dialectal$n_word_int > q3, 'pnk', 'wh'))
 ```
 
 ```{r results="asis"}
