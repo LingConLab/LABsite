@@ -13,12 +13,22 @@
 
 <title>All resources</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -26,12 +36,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com"> <!--шрифт-->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -44,32 +58,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
 
@@ -80,10 +70,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -100,40 +86,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -161,7 +123,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -173,7 +135,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -183,11 +145,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -199,13 +178,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -213,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -266,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -282,20 +253,20 @@ $(document).ready(function () {
   <a href="resources.html">All resources</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Corpora
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dialect corpora</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dialect corpora</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="http://lingconlab.ru/khislavichi/">Khislavichi dialect</a>
+          <a href="http://lingconlab.ru/keba/">Keba dialect</a>
         </li>
         <li>
-          <a href="http://lingconlab.ru/keba/">Keba dialect</a>
+          <a href="http://lingconlab.ru/khislavichi/">Khislavichi dialect</a>
         </li>
         <li>
           <a href="http://lingconlab.ru/luzhnikovo">Luzhnikovo dialect</a>
@@ -339,7 +310,7 @@ $(document).ready(function () {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Corpora of bilingual Russian</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Corpora of bilingual Russian</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="http://lingconlab.ru/BashkirRus/">Bashkortostan Russian</a>
@@ -365,7 +336,7 @@ $(document).ready(function () {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Corpora of minority languages of Russia</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Corpora of minority languages of Russia</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="http://lingconlab.ru/spoken_abaza/">Abaza</a>
@@ -385,12 +356,15 @@ $(document).ready(function () {
         <li>
           <a href="http://lingconlab.ru/spoken_meadow_mari/">Meadow Mari</a>
         </li>
+        <li>
+          <a href="http://lingconlab.ru/muira_dargwa/search">Muira Dargwa</a>
+        </li>
       </ul>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Dictionaries
      
     <span class="caret"></span>
@@ -408,7 +382,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Resources
      
     <span class="caret"></span>
@@ -433,7 +407,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -443,433 +417,607 @@ $(document).ready(function () {
 
 
 <div id="m1" class="section level1 tabset">
-<h1>Spoken corpora</h1>
+<h1 class="tabset">Spoken corpora</h1>
 <hr />
-<p>In the Linguistic Convergence Laboratory we create spoken corpora, collections of spoken language which give users access to audio recordings of texts as well as the written gloss. Audio access allows researchers to study languages at different levels, without having to rely on another’s transcription. It is important for users to understand that the search function for these corpora is made possible by a standardized glossing of texts, so any study of linguistic features in the spoken corpora requires both working with the text and listening to all the examples used.</p>
-<p>The Laboratory develops corpora of dialectal, regional, and bilingual speech variations, predominantly of those spoken in rural areas.</p>
-<p>An important aspect of the Laboratory’s spoken corpora is the addition of sociolinguistic metadata about the speakers including information about their age, sex, education, place of residency, and command of other languages.</p>
-<p>The spoken corpora are developed in cooperation with researchers from other universities and institutes. The Laboratory is open to the development of new resources along the lines of those already released.</p>
+<p>In the Linguistic Convergence Laboratory we create spoken corpora,
+collections of spoken language which give users access to audio
+recordings of texts as well as the written gloss. Audio access allows
+researchers to study languages at different levels, without having to
+rely on another’s transcription. It is important for users to understand
+that the search function for these corpora is made possible by a
+standardized glossing of texts, so any study of linguistic features in
+the spoken corpora requires both working with the text and listening to
+all the examples used.</p>
+<p>The Laboratory develops corpora of dialectal, regional, and bilingual
+speech variations, predominantly of those spoken in rural areas.</p>
+<p>An important aspect of the Laboratory’s spoken corpora is the
+addition of sociolinguistic metadata about the speakers including
+information about their age, sex, education, place of residency, and
+command of other languages.</p>
+<p>The spoken corpora are developed in cooperation with researchers from
+other universities and institutes. The Laboratory is open to the
+development of new resources along the lines of those already
+released.</p>
 <div id="dialect-corpora" class="section level2">
 <h2>Dialect corpora</h2>
-
 <div class="cards">
-    <article class="card gry">
-        <header>
-            <h2>Khislavichi dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 260&nbsp;793
-            <form action="http://lingconlab.ru/khislavichi/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Keba dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 54&nbsp;535
-            <form action="http://lingconlab.ru/keba/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card gry">
-        <header>
-            <h2>Luzhnikovo dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 68&nbsp;666
-            <form action="http://lingconlab.ru/luzhnikovo" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Lukh and Teza river basins dialects</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 146&nbsp;350
-            <form action="http://lingconlab.ru/lukhteza" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Malinino dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 138&nbsp;943
-            <form action="http://lingconlab.ru/malinino/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Middle Pyoza dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 79&nbsp;566
-            <form action="http://lingconlab.ru/pyoza/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card gry">
-        <header>
-            <h2>Nekhochi dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 88&nbsp;965
-            <form action="http://lingconlab.ru/nekhochi/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Opochetsky dialects</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 68&nbsp;741
-            <form action="http://lingconlab.ru/opochka" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Rogovatka dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 100&nbsp;047
-            <form action="http://lingconlab.ru/rogovatka/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Spiridonova Buda dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 70&nbsp;565
-            <form action="http://lingconlab.ru/SpiridonovaBuda/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Shetnevo and Makeevo dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 58&nbsp;003
-            <form action="http://lingconlab.ru/shetnevo/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Tserkovnoe dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 19&nbsp;960
-            <form action="http://lingconlab.ru/tserkovnoe" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Upper Pinega and Vyya river basins dialect</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 70&nbsp;803
-            <form action="http://lingconlab.ru/vaduga/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Ustja River Basin dialects</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 959&nbsp;782
-            <form action="http://www.parasolcorpus.org/Pushkino/login.php" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Zvenigorod dialect</h2>
-        </header>
-        <div class="content">
-          <p> Tokens: 68&nbsp;324
-            <form action="http://lingconlab.ru/zvenigorod/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card gry">
+<header>
+<h2>
+Keba dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 54 535
+<form action="http://lingconlab.ru/keba" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card pnk">
+<header>
+<h2>
+Khislavichi dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 260 793
+<form action="http://lingconlab.ru/khislavichi/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Lukh and Teza river basins dialects
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 146 350
+<form action="http://lingconlab.ru/lukhteza/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Luzhnikovo dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 68 666
+<form action="http://lingconlab.ru/luzhnikovo" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Malinino dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 138 943
+<form action="http://lingconlab.ru/malinino/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Middle Pyoza dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 79 566
+<form action="http://lingconlab.ru/pyoza/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Nekhochi dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 88 965
+<form action="http://lingconlab.ru/nekhochi/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Opochetsky dialects
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 68 741
+<form action="http://lingconlab.ru/opochka" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Rogovatka dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 100 047
+<form action="http://lingconlab.ru/rogovatka/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Shetnevo and Makeevo dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 58 003
+<form action="http://lingconlab.ru/shetnevo/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Spiridonova Buda dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 70 565
+<form action="http://lingconlab.ru/SpiridonovaBuda/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Tserkovnoe dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 19 960
+<form action="http://lingconlab.ru/tserkovnoe" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Upper Pinega and Vyya river basins dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 70 803
+<form action="http://lingconlab.ru/vaduga/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card pnk">
+<header>
+<h2>
+Ustja River Basin dialects
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 959 782
+<form action="http://www.parasolcorpus.org/Pushkino/login.php" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Zvenigorod dialect
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 68 324
+<form action="http://lingconlab.ru/zvenigorod/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
 </div>
 <div id="corpora-of-bilingual-russian" class="section level2">
 <h2>Corpora of bilingual Russian</h2>
-
 <div class="cards">
-    <article class="card gry">
-        <header>
-            <h2>Bashkortostan Russian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 93&nbsp;127
-            <form action="http://lingconlab.ru/BashkirRus/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Beserman Russian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 97&nbsp;216
-            <form action="http://lingconlab.ru/BesermanRus/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Chuvash Russian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 46&nbsp;307
-            <form action="http://lingconlab.ru/ChuvashRus/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Daghestanian Russian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 227&nbsp;885
-            <form action="http://parasolcorpus.org/dagrus/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Karelian Russian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 74&nbsp;014
-            <form action="http://lingconlab.ru/karelrus/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Romani Russian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 41&nbsp;767
-            <form action="http://lingconlab.ru/romarus" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Yakut Russian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 15&nbsp;139
-            <form action="http://lingconlab.ru/cs_yakut/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card wh">
+<header>
+<h2>
+Bashkortostan Russian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 93 127
+<form action="http://lingconlab.ru/BashkirRus/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card wh">
+<header>
+<h2>
+Beserman Russian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 97 216
+<form action="http://lingconlab.ru/BesermanRus/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
 </div>
-<div id="corpora-of-minority-languages-of-russia" class="section level2">
+</article>
+<article class="card gry">
+<header>
+<h2>
+Chuvash Russian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 46 307
+<form action="http://lingconlab.ru/ChuvashRus/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Daghestanian Russian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 227 885
+<form action="http://parasolcorpus.org/dagrus/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Karelian Russian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 74 014
+<form action="http://lingconlab.ru/karelrus/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Romani Russian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 41 767
+<form action="http://lingconlab.ru/romarus" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Yakut Russian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 15 139
+<form action="http://lingconlab.ru/cs_yakut/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
+</div>
+<div id="corpora-of-minority-languages-of-russia"
+class="section level2">
 <h2>Corpora of minority languages of Russia</h2>
-
 <div class="cards">
-    <article class="card">
-        <header>
-            <h2>Abaza</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 3&nbsp;636
-            <form action="http://lingconlab.ru/spoken_abaza/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card gry">
-        <header>
-            <h2>Adyghe</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: ND
-            <form action="http://lingconlab.ru/spoken_adyghe/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Bashkir</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: ~25&nbsp;000
-            <form action="http://lingconlab.ru/spoken_bashkir/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Kabardian</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: ND
-            <form action="http://lingconlab.ru/spoken_besleney/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Khakas</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: ~58&nbsp;000
-            <form action="http://lingconlab.ru/spoken_khakas/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Meadow Mari</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: ND
-            <form action="http://lingconlab.ru/spoken_meadow_mari" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card gry">
+<header>
+<h2>
+Abaza
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 3 636
+<form action="http://lingconlab.ru/spoken_abaza/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card gry">
+<header>
+<h2>
+Adyghe
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 9 128
+<form action="http://lingconlab.ru/spoken_adyghe/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Bashkir
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: ~25 000
+<form action="http://lingconlab.ru/spoken_bashkir/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Kabardian
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 7 955
+<form action="http://lingconlab.ru/spoken_besleney/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Khakas
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: ~58 000
+<form action="http://lingconlab.ru/spoken_khakas/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Meadow Mari
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 11 647
+<form action="http://lingconlab.ru/spoken_meadow_mari/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Muira Dargwa
+</h2>
+</header>
+<div class="content">
+<p>
+Tokens: 7 470
+<form action="http://lingconlab.ru/muira_dargwa/search" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
 </div>
 </div>
 <div id="section" class="section level1 unnumbered">
-<h1></h1>
+<h1 class="unnumbered"></h1>
 
 <div class="main-image" style="background-image: url('images/push2.jpg'); background-position: 0% 65%;">
   <div class="attrib"> Pushkino-Mikhalevskaja, Velsky District, Arkhangelskaja oblastj <br> by Michael Daniel </div>
 </div>
 
-<!--  -->
-<!-- <div class="main-image" style="background-image: url('images/mount2.JPG'); background-position: 0% 65%;"> -->
-<!--   <div class="attrib"> Fiy, Akhtynsky district, Daghestan <br> by Michael Daniel </div> -->
-<!-- </div> -->
-<!--  -->
-<!-- ## Dialect corpora -->
-<!-- Oral corpora of dialect and regional variants of Russian are developed by the Linguistic Convergence Laboratory in cooperation with dialectologists from the V. V. Vinogradov Institute of Russian Language of the Russian Academy of Sciences, St. Petersburg State University, and other universities and institutes. Currently, corpora of northern, southern, and central Russian dialects are accessible. -->
-<!-- ## Corpora of bilingual Russian -->
-<!-- Oral corpora of bilingual variants of Russian are recordings of interviews with residents of those regions of Russia where Russian is a second language. Research on Russian speech in these regions makes it possible to draw conclusions about the influence of local languages on Russian and about the mastering of a second language. -->
-<!-- ## Spoken corpora of minority languages of Russia -->
-<!-- Oral corpora of minority languages of Russia are developed by the Linguistic Convergence Laboratory in cooperation with researchers from the Institute of Linguistics and the Institute of Linguistic Studies of the Russian Academy of Sciences, and others. The corpora consist of audio texts with accompanying transcriptions, translations into Russian, and glosses (word-by-word translations with grammatical analysis). -->
 </div>
 <div id="m2" class="section level1">
 <h1>Dictionaries</h1>
 <hr />
-<p>Dictionaries contain audio and text data from several villages of Daghestan. The wordlists are based onfor dictionaries derives primarily from the Jena proposal for a unified comparative lexicon of the languages of Daghestan and include bothintends to cover the Swadesh list and Kibrik and Kodzasov’s thesaurus for Daghestanian languages together with some additional items.</p>
-
+<p>Dictionaries contain audio and text data from several villages of
+Daghestan. The wordlists are based onfor dictionaries derives primarily
+from the Jena proposal for a unified comparative lexicon of the
+languages of Daghestan and include bothintends to cover the Swadesh list
+and Kibrik and Kodzasov’s thesaurus for Daghestanian languages together
+with some additional items.</p>
 <div class="cards">
-    <article class="card pnk">
-        <header>
-            <h2>Mehweb</h2>
-        </header>    
-        <div class="content">
-          <p>Entries: 1&nbsp;132
-            <form action="http://lingconlab.ru/MehwebDict/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Rutul</h2>
-        </header>    
-        <div class="content">
-          <p>Entries: 738
-            <form action="https://linghub.ru/rutuldict/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Tukita</h2>
-        </header>    
-        <div class="content">
-          <p>Entries: 1&nbsp;175
-            <form action="http://lingconlab.ru/TukitaDict/" target="_blank">
-              <button class="button" type="submit">View</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card gry">
+<header>
+<h2>
+Mehweb
+</h2>
+</header>
+<div class="content">
+<p>
+Entries: 1 132
+<form action="http://lingconlab.ru/MehwebDict/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card gry">
+<header>
+<h2>
+Rutul
+</h2>
+</header>
+<div class="content">
+<p>
+Entries: 738
+<form action="https://linghub.ru/rutuldict/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Tukita
+</h2>
+</header>
+<div class="content">
+<p>
+Entries: 1 175
+<form action="http://lingconlab.ru/TukitaDict/" target="_blank">
+<button class="button" type="submit">
+View
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
 
 <div class="main-image" style="background-image: url('images/2.JPG'); background-position: 0% 65%;">
   <div class="attrib"> Kina, Rutulsky District, Daghestan <br> by Timur Maisak </div>
@@ -879,8 +1027,9 @@ $(document).ready(function () {
 <div id="m3" class="section level1">
 <h1>Other projects</h1>
 <hr />
-<p>In addition to dictionaries and corpora, the Laboratory also develops databases and atlases containing lexical, grammatical and sociolinguistic data from many villages of Daghestan.</p>
-<!-- The Linguistic Convergence Laboratory conducts research on Daghestan from linguistic and sociolinguistic perspectives. Daghestan is one of the few multilingual regions of the world where local languages continue to be used in rural localities for everyday activities. Research is conducted on traditional multilingualism among speakers of highland villages, basic lexicon of Nakh-Daghestanian languages, and on language contact at the level of lexical borrowing and at the grammatical level as well. To better understand the dynamics of linguistic diversity in Daghestan the Laboratory digitized population census data from Daghestan from the late 19th to early 20th centuries. -->
+<p>In addition to dictionaries and corpora, the Laboratory also develops
+databases and atlases containing lexical, grammatical and
+sociolinguistic data from many villages of Daghestan.</p>
 
 <div class="cards">
     <article class="card">
@@ -907,7 +1056,7 @@ $(document).ready(function () {
           </p>
         </div>
     </article>
-    <article class="card gry">
+    <article class="card">
         <header>
             <h2>MultiDag</h2>
         </header>
@@ -933,14 +1082,6 @@ $(document).ready(function () {
     </article>
 </div>
 
-<!-- ## DagSwadesh -->
-<!-- DagSwadesh is a database of Swadesh-100 wordlists from the languages of Daghestan. The main aim of the project is to substantiate lexicostatistical classification of the Nakh-Daghestanian idioms by controlling the provenance of the wordlist at the village level, including using data from reliable sources and collecting new data ourselves. -->
-<!-- ## Daghestanian loans database -->
-<!-- The database contains results of elicitation of a list of 164 lexical meanings across languages of Daghestan. -->
-<!-- ## Atlas of multilingualism in Daghestan -->
-<!-- The focus of this project is on multilingual areas. The aim is to get information about the multilingualism of local people, that is, the languages they can speak in addition to their native language. -->
-<!-- ## Typological Atlas of the languages of Daghestan -->
-<!-- The goal of this project is to develop a tool for the visualization of information about linguistic structures characteristic of Daghestan. The atlas is based almost exclusively on data from published grammars. -->
 
 <div class="main-image" style="background-image: url('images/karat2.jpg'); background-position: 0% 65%;">
   <div class="attrib"> Karata area, Akhvakhsky District, Daghestan <br> by Timofey Mukhin </div>
@@ -976,7 +1117,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -994,7 +1135,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

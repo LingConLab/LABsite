@@ -11,10 +11,10 @@ navbar:
       menu:
         - text: "Диалектные корпуса"
           menu:
-            - text: "Хиславичский говор"
-              href: http://lingconlab.ru/khislavichi/
             - text: "Говор с. Кеба"
               href: http://lingconlab.ru/keba
+            - text: "Хиславичский говор"
+              href: http://lingconlab.ru/khislavichi/
             - text: "Говор с. Лужниково"
               href: http://lingconlab.ru/luzhnikovo
             - text: "Говоры низовья рек Лух и Теза"
@@ -71,6 +71,8 @@ navbar:
               href: http://lingconlab.ru/spoken_khakas/
             - text: "Луговой марийский язык"
               href: http://lingconlab.ru/spoken_meadow_mari/
+            - text: "Муиринский даргинский"
+              href: http://lingconlab.ru/muira_dargwa/search
     - text: "Словари"
       menu:
         - text: "Мегебский язык"

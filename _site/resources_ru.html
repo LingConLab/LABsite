@@ -13,12 +13,22 @@
 
 <title>Все ресурсы</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -26,12 +36,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com"> <!--шрифт-->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -44,32 +58,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
 
@@ -80,10 +70,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -100,40 +86,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -161,7 +123,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -173,7 +135,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -183,11 +145,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -199,13 +178,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -213,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -266,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -282,20 +253,20 @@ $(document).ready(function () {
   <a href="resources_ru.html">Все ресурсы</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Корпуса
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Диалектные корпуса</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Диалектные корпуса</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="http://lingconlab.ru/khislavichi/">Хиславичский говор</a>
+          <a href="http://lingconlab.ru/keba">Говор с. Кеба</a>
         </li>
         <li>
-          <a href="http://lingconlab.ru/keba">Говор с. Кеба</a>
+          <a href="http://lingconlab.ru/khislavichi/">Хиславичский говор</a>
         </li>
         <li>
           <a href="http://lingconlab.ru/luzhnikovo">Говор с. Лужниково</a>
@@ -339,7 +310,7 @@ $(document).ready(function () {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Корпуса билингвального русского</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Корпуса билингвального русского</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="http://lingconlab.ru/BashkirRus/">Башкирский русский</a>
@@ -365,7 +336,7 @@ $(document).ready(function () {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Корпуса малых языков России</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Корпуса малых языков России</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="http://lingconlab.ru/spoken_abaza/">Абазинский язык</a>
@@ -385,12 +356,15 @@ $(document).ready(function () {
         <li>
           <a href="http://lingconlab.ru/spoken_meadow_mari/">Луговой марийский язык</a>
         </li>
+        <li>
+          <a href="http://lingconlab.ru/muira_dargwa/search">Муиринский даргинский</a>
+        </li>
       </ul>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Словари
      
     <span class="caret"></span>
@@ -408,7 +382,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Другие проекты
      
     <span class="caret"></span>
@@ -433,7 +407,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -443,372 +417,536 @@ $(document).ready(function () {
 
 
 <div id="m1" class="section level1 tabset">
-<h1>Устные корпуса</h1>
+<h1 class="tabset">Устные корпуса</h1>
 <hr />
-<p>В Лаборатории языковой конвергенции мы создаем устные корпуса — собрания устных текстов, записанных на аудио, расшифрованных и отглоссированных. Доступ к исходным аудиозаписям позволяет исследователям изучать языки на разных уровнях, не полагаясь на чужую транскрипцию. Функция поиска в корпусах возможна благодаря использованию стандартных парсеров, поэтому любое иследование речи по данным разговорных корпусов требует не только обращения к текстам, но и прослушивания всех используемых примеров.</p>
-<p>В Лаборатории мы разрабатываем корпуса диалектной, региональной и билингвальной речи, записанной преимущественно в сельской местности.</p>
-<p>Важной особенностью устных корпусов Лаборатории является наличие дополнительных социолингвистических метаданных о говорящих, которые включают информацию об их возрасте, поле, образовании, месте жительства и владении другими языками.</p>
-<p>Устные корпуса разрабатываются в сотрудничестве с исследователями из других университетов и институтов. Мы открыты сотрудничеству для разработки новых языковых ресурсов, аналогичных уже созданным.</p>
+<p>В Лаборатории языковой конвергенции мы создаем устные корпуса —
+собрания устных текстов, записанных на аудио, расшифрованных и
+отглоссированных. Доступ к исходным аудиозаписям позволяет
+исследователям изучать языки на разных уровнях, не полагаясь на чужую
+транскрипцию. Функция поиска в корпусах возможна благодаря использованию
+стандартных парсеров, поэтому любое иследование речи по данным
+разговорных корпусов требует не только обращения к текстам, но и
+прослушивания всех используемых примеров.</p>
+<p>В Лаборатории мы разрабатываем корпуса диалектной, региональной и
+билингвальной речи, записанной преимущественно в сельской местности.</p>
+<p>Важной особенностью устных корпусов Лаборатории является наличие
+дополнительных социолингвистических метаданных о говорящих, которые
+включают информацию об их возрасте, поле, образовании, месте жительства
+и владении другими языками.</p>
+<p>Устные корпуса разрабатываются в сотрудничестве с исследователями из
+других университетов и институтов. Мы открыты сотрудничеству для
+разработки новых языковых ресурсов, аналогичных уже созданным.</p>
 <div id="диалектные-корпуса" class="section level2">
 <h2>Диалектные корпуса</h2>
-
 <div class="cards">
-    <article class="card gry">
-        <header>
-            <h2>Хиславичский говор</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 260&nbsp;793
-            <form action="http://lingconlab.ru/khislavichi/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говор с. Кеба</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 54&nbsp;535
-            <form action="http://lingconlab.ru/keba" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card gry">
-        <header>
-            <h2>Лужниковский говор</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 68&nbsp;666
-            <form action="http://lingconlab.ru/luzhnikovo" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говоры низовья рек Лух и Теза</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 146&nbsp;350
-            <form action="http://lingconlab.ru/lukhteza" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говор с. Малинино</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 138&nbsp;943
-            <form action="http://lingconlab.ru/malinino/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говор Средней Пёзы</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 79&nbsp;566
-            <form action="http://lingconlab.ru/pyoza/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card gry">
-        <header>
-            <h2>Говор д. Нехочи</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 88&nbsp;965
-            <form action="http://lingconlab.ru/nekhochi/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Опочецкие говоры</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 68&nbsp;741
-            <form action="http://lingconlab.ru/opochka" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говор с. Роговатка</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 100&nbsp;047
-            <form action="http://lingconlab.ru/rogovatka/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Говор с. Спиридонова Буда</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 70&nbsp;565
-            <form action="http://lingconlab.ru/SpiridonovaBuda/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говор д. Шетнево и Макеево</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 58&nbsp;003
-            <form action="http://lingconlab.ru/shetnevo/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говор с. Церковное</h2>
-        </header>    
-        <div class="content">
-          <p> Tokens: 19&nbsp;960
-            <form action="http://lingconlab.ru/tserkovnoe" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Говор верхней Пинеги и Выи</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 70&nbsp;803
-            <form action="http://lingconlab.ru/vaduga/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Устьянские говоры</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 959&nbsp;782
-            <form action="http://www.parasolcorpus.org/Pushkino/login.php" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Говор г. Звенигород</h2>
-        </header>
-        <div class="content">
-          <p> Словоупотреблений: 68&nbsp;324
-            <form action="http://lingconlab.ru/zvenigorod/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card gry">
+<header>
+<h2>
+Говор с. Кеба
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 54 535
+<form action="http://lingconlab.ru/keba" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card pnk">
+<header>
+<h2>
+Хиславичский говор
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 260 793
+<form action="http://lingconlab.ru/khislavichi/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говоры низовья рек Лух и Теза
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 146 350
+<form action="http://lingconlab.ru/lukhteza/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Лужниковский говор
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 68 666
+<form action="http://lingconlab.ru/luzhnikovo" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор с. Малинино
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 138 943
+<form action="http://lingconlab.ru/malinino/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор Средней Пёзы
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 79 566
+<form action="http://lingconlab.ru/pyoza/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор д. Нехочи
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 88 965
+<form action="http://lingconlab.ru/nekhochi/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Опочецкие говоры
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 68 741
+<form action="http://lingconlab.ru/opochka" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор с. Роговатка
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 100 047
+<form action="http://lingconlab.ru/rogovatka/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор д. Шетнево и Макеево
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 58 003
+<form action="http://lingconlab.ru/shetnevo/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор с. Спиридонова Буда
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 70 565
+<form action="http://lingconlab.ru/SpiridonovaBuda/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Говор с. Церковное
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 19 960
+<form action="http://lingconlab.ru/tserkovnoe" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор верхней Пинеги и Выи
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 70 803
+<form action="http://lingconlab.ru/vaduga/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card pnk">
+<header>
+<h2>
+Устьянские говоры
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 959 782
+<form action="http://www.parasolcorpus.org/Pushkino/login.php" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Говор г. Звенигород
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 68 324
+<form action="http://lingconlab.ru/zvenigorod/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
 </div>
 <div id="корпуса-билингвального-русского" class="section level2">
 <h2>Корпуса билингвального русского</h2>
-
 <div class="cards">
-    <article class="card gry">
-        <header>
-            <h2>Башкирский русский</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 93&nbsp;127
-            <form action="http://lingconlab.ru/BashkirRus/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Бесермянский русский</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 97&nbsp;216
-            <form action="http://lingconlab.ru/BesermanRus/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Чувашский русский</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 46&nbsp;307
-            <form action="http://lingconlab.ru/ChuvashRus/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Дагестанский русский</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 227&nbsp;885
-            <form action="http://parasolcorpus.org/dagrus/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Карельский русский</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 74&nbsp;014
-            <form action="http://lingconlab.ru/karelrus/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Цыганский русский</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 41&nbsp;767
-            <form action="http://lingconlab.ru/romarus" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Якутский русский</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 15&nbsp;139
-            <form action="http://lingconlab.ru/cs_yakut/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card wh">
+<header>
+<h2>
+Башкирский русский
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 93 127
+<form action="http://lingconlab.ru/BashkirRus/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card wh">
+<header>
+<h2>
+Бесермянский русский
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 97 216
+<form action="http://lingconlab.ru/BesermanRus/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Чувашский русский
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 46 307
+<form action="http://lingconlab.ru/ChuvashRus/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Дагестанский русский
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 227 885
+<form action="http://parasolcorpus.org/dagrus/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card wh">
+<header>
+<h2>
+Карельский русский
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 74 014
+<form action="http://lingconlab.ru/karelrus/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Цыганский русский
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 41 767
+<form action="http://lingconlab.ru/romarus" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Якутский русский
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 15 139
+<form action="http://lingconlab.ru/cs_yakut/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
 </div>
 <div id="корпуса-малых-языков-россии" class="section level2">
 <h2>Корпуса малых языков России</h2>
-
 <div class="cards">
-    <article class="card">
-        <header>
-            <h2>Абазинский язык</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: 3&nbsp;636
-            <form action="http://lingconlab.ru/spoken_abaza/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card gry">
-        <header>
-            <h2>Адыгейский язык</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: ND
-            <form action="http://lingconlab.ru/spoken_adyghe/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Башкирский язык</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: ~25&nbsp;000
-            <form action="http://lingconlab.ru/spoken_bashkir/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Кабардино-черкесский язык</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: ND
-            <form action="http://lingconlab.ru/spoken_besleney/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card pnk">
-        <header>
-            <h2>Хакасский язык</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: ~58&nbsp;000
-            <form action="http://lingconlab.ru/spoken_khakas/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Луговой марийский язык</h2>
-        </header>    
-        <div class="content">
-          <p> Словоупотреблений: ND
-            <form action="http://lingconlab.ru/spoken_meadow_mari" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card gry">
+<header>
+<h2>
+Абазинский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 3 636
+<form action="http://lingconlab.ru/spoken_abaza/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card gry">
+<header>
+<h2>
+Адыгейский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 9 128
+<form action="http://lingconlab.ru/spoken_adyghe/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Башкирский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: ~25 000
+<form action="http://lingconlab.ru/spoken_bashkir/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Кабардино-черкесский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 7 955
+<form action="http://lingconlab.ru/spoken_besleney/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Хакасский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: ~58 000
+<form action="http://lingconlab.ru/spoken_khakas/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Луговой марийский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 11 647
+<form action="http://lingconlab.ru/spoken_meadow_mari/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Муиринский даргинский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Словоупотреблений: 7 470
+<form action="http://lingconlab.ru/muira_dargwa/search" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
 </div>
 </div>
 <div id="section" class="section level1 unnumbered">
-<h1></h1>
+<h1 class="unnumbered"></h1>
 
 <div class="main-image" style="background-image: url('images/push2.jpg'); background-position: 0% 65%;">
   <div class="attrib"> д. Пушкино-Михалёвская, Вельский район, Архангельская область <br> Михаил Даниэль </div>
@@ -818,47 +956,64 @@ $(document).ready(function () {
 <div id="m2" class="section level1">
 <h1>Словари</h1>
 <hr />
-<p>Словари созданы на материале аудио и текстовых данных, записанных в нескольких аулах Дагестана. Словарные списки составлены исходя из концепции о едином сравнительном лексиконе языков Дагестана и охватывают списки Сводеша и тезаурус Кибрика и Кодзасова для дагестанских языков.</p>
-
+<p>Словари созданы на материале аудио и текстовых данных, записанных в
+нескольких аулах Дагестана. Словарные списки составлены исходя из
+концепции о едином сравнительном лексиконе языков Дагестана и охватывают
+списки Сводеша и тезаурус Кибрика и Кодзасова для дагестанских
+языков.</p>
 <div class="cards">
-    <article class="card pnk">
-        <header>
-            <h2>Мегебский язык</h2>
-        </header>    
-        <div class="content">
-          <p>Статей: 1&nbsp;132
-            <form action="http://lingconlab.ru/MehwebDict/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Рутульский язык</h2>
-        </header>    
-        <div class="content">
-          <p>Статей: 738
-            <form action="https://linghub.ru/rutuldict/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
-    <article class="card">
-        <header>
-            <h2>Тукитинский язык</h2>
-        </header>    
-        <div class="content">
-          <p>Статей: 1&nbsp;175
-            <form action="http://lingconlab.ru/TukitaDict/" target="_blank">
-              <button class="button" type="submit">Перейти</button>
-            </form>
-          </p>
-        </div>
-    </article>
+<article class="card gry">
+<header>
+<h2>
+Мегебский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Статей: 1 132
+<form action="http://lingconlab.ru/MehwebDict/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
 </div>
-
+</article>
+<article class="card gry">
+<header>
+<h2>
+Рутульский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Статей: 738
+<form action="https://linghub.ru/rutuldict/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+<article class="card gry">
+<header>
+<h2>
+Тукитинский язык
+</h2>
+</header>
+<div class="content">
+<p>
+Статей: 1 175
+<form action="http://lingconlab.ru/TukitaDict/" target="_blank">
+<button class="button" type="submit">
+Перейти
+</button>
+</form>
+</p>
+</div>
+</article>
+</div>
 
 <div class="main-image" style="background-image: url('images/2.JPG'); background-position: 0% 65%;">
   <div class="attrib">с. Кина, Рутульский район, Дагестан <br> Тимур Майсак </div>
@@ -868,7 +1023,9 @@ $(document).ready(function () {
 <div id="m3" class="section level1">
 <h1>Другие проекты</h1>
 <hr />
-<p>Помимо словарей и корпусов, в лаборатории создаются базы данных и атласы, содержащие лексические, грамматические и социолингвистические данные языков и аулов Дагестана.</p>
+<p>Помимо словарей и корпусов, в лаборатории создаются базы данных и
+атласы, содержащие лексические, грамматические и социолингвистические
+данные языков и аулов Дагестана.</p>
 <p>
 <div class="cards">
     <article class="card">
@@ -895,7 +1052,7 @@ $(document).ready(function () {
           </p>
         </div>
     </article>
-    <article class="card gry">
+    <article class="card">
         <header>
             <h2>MultiDag</h2>
         </header>
@@ -955,7 +1112,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -973,7 +1130,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

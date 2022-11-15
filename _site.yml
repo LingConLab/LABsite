@@ -11,10 +11,10 @@ navbar:
       menu:
         - text: "Dialect corpora"
           menu:
-            - text: "Khislavichi dialect"
-              href: http://lingconlab.ru/khislavichi/
             - text: "Keba dialect"
               href: http://lingconlab.ru/keba/
+            - text: "Khislavichi dialect"
+              href: http://lingconlab.ru/khislavichi/
             - text: "Luzhnikovo dialect"
               href: http://lingconlab.ru/luzhnikovo
             - text: "Lukh and Teza river basins dialects"
@@ -71,6 +71,8 @@ navbar:
               href: http://lingconlab.ru/spoken_khakas/
             - text: "Meadow Mari"
               href: http://lingconlab.ru/spoken_meadow_mari/
+            - text: "Muira Dargwa"
+              href: http://lingconlab.ru/muira_dargwa/search
     - text: "Dictionaries"
       menu:
         - text: "Mehweb"
