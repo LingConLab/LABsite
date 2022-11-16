@@ -43,9 +43,9 @@ cat('<div class="cards ">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title[n], 
-                   '</h2>', 
+                   '</p>', 
                    '</header>', 
                    '<div class="content">',
                    '<p> Tokens: ', fe_dialectal$n_tokens[n],
@@ -80,9 +80,9 @@ cat('<div class="cards">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title[n], 
-                   '</h2>', 
+                   '</p>', 
                    '</header>', 
                    '<div class="content">',
                    '<p> Tokens: ', fe_dialectal$n_tokens[n],
@@ -118,9 +118,9 @@ cat('<div class="cards">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title[n], 
-                   '</h2>', 
+                   '</p>', 
                    '</header>', 
                    '<div class="content">',
                    '<p> Tokens: ', fe_dialectal$n_tokens[n],
@@ -167,9 +167,9 @@ cat('<div class="cards">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title[n], 
-                   '</h2>', 
+                   '</p>',  
                    '</header>', 
                    '<div class="content">',
                    '<p> Entries: ', fe_dialectal$n_tokens[n],
@@ -200,7 +200,7 @@ In addition to dictionaries and corpora, the Laboratory also develops databases 
 <div class="cards">
     <article class="card">
         <header>
-            <h2>DagSwadesh</h2>
+            <p class="cardtitle">DagSwadesh</p>
         </header>
         <div class="content">
           <p> Swadesh-100 wordlists from the languages of Daghestan
@@ -212,7 +212,7 @@ In addition to dictionaries and corpora, the Laboratory also develops databases 
     </article>
     <article class="card">
         <header>
-            <h2>DagLoans</h2>
+            <p class="cardtitle">DagLoans</p>
         </header>
         <div class="content">
           <p> Daghestanian loans database
@@ -224,7 +224,7 @@ In addition to dictionaries and corpora, the Laboratory also develops databases 
     </article>
     <article class="card">
         <header>
-            <h2>MultiDag</h2>
+            <p class="cardtitle">MultiDag</p>
         </header>
         <div class="content">
           <p> Atlas of multilingualism in Daghestan
@@ -236,7 +236,7 @@ In addition to dictionaries and corpora, the Laboratory also develops databases 
     </article>
     <article class="card">
         <header>
-            <h2>TALD</h2>
+            <p class="cardtitle">TALD</p>
         </header>
         <div class="content">
           <p> Typological Atlas of the languages of Daghestan

@@ -43,9 +43,9 @@ cat('<div class="cards">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title_ru[n], 
-                   '</h2>', 
+                   '</p>', 
                    '</header>', 
                    '<div class="content">',
                    '<p> Словоупотреблений: ', fe_dialectal$n_tokens[n],
@@ -80,9 +80,9 @@ cat('<div class="cards">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title_ru[n], 
-                   '</h2>', 
+                   '</p>', 
                    '</header>', 
                    '<div class="content">',
                    '<p> Словоупотреблений: ', fe_dialectal$n_tokens[n],
@@ -117,9 +117,9 @@ cat('<div class="cards">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title_ru[n], 
-                   '</h2>', 
+                   '</p>', 
                    '</header>', 
                    '<div class="content">',
                    '<p> Словоупотреблений: ', fe_dialectal$n_tokens[n],
@@ -166,9 +166,9 @@ cat('<div class="cards">')
 for (n in 1:nrow(fe_dialectal)) {
  html_card = paste0('<article class="card ', fe_dialectal$color[n],'">', 
                    '<header>', 
-                   '<h2>', 
+                   '<p class="cardtitle">', 
                    fe_dialectal$card_title_ru[n], 
-                   '</h2>', 
+                   '</p>', 
                    '</header>', 
                    '<div class="content">',
                    '<p> Статей: ', fe_dialectal$n_tokens[n],
@@ -199,7 +199,7 @@ cat('</div>')
 <div class="cards">
     <article class="card">
         <header>
-            <h2>DagSwadesh</h2>
+            <p class="cardtitle">DagSwadesh</p>
         </header>
         <div class="content">
           <p> Список Сводеша в языках Дагестана
@@ -211,7 +211,7 @@ cat('</div>')
     </article>
     <article class="card">
         <header>
-            <h2>DagLoans</h2>
+            <p class="cardtitle">DagLoans</p>
         </header>
         <div class="content">
           <p> Заимствования в языках Дагестана
@@ -223,7 +223,7 @@ cat('</div>')
     </article>
     <article class="card">
         <header>
-            <h2>MultiDag</h2>
+            <p class="cardtitle">MultiDag</p>
         </header>
         <div class="content">
           <p> Атлас многоязычия в Дагестане
@@ -235,7 +235,7 @@ cat('</div>')
     </article>
     <article class="card">
         <header>
-            <h2>TALD</h2>
+            <p class="cardtitle">TALD</p>
         </header>
         <div class="content">
           <p> Типологический атлас языков Дагестана
