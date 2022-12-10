@@ -69,6 +69,8 @@ navbar:
               href: http://lingconlab.ru/spoken_bashkir/
             - text: "Kabardian"
               href: http://lingconlab.ru/spoken_besleney/ 
+            - text: "Kadar Dargwa"
+              href: http://lingconlab.ru/kadar_dargwa/
             - text: "Khakas"
               href: http://lingconlab.ru/spoken_khakas/
             - text: "Meadow Mari"
@@ -83,6 +85,8 @@ navbar:
           href: https://linghub.ru/rutuldict/
         - text: "Tukita"
           href: http://lingconlab.ru/TukitaDict/
+        - text: "Dargwa varieties"
+          href: http://lingconlab.ru/dargwa_dict/
     - text: "Other Resources"
       menu:
         - text: "DagSwadesh"

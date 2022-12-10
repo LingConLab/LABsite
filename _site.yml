@@ -69,6 +69,8 @@ navbar:
               href: http://lingconlab.ru/spoken_bashkir/
             - text: "Кабардино-черкесский язык"
               href: http://lingconlab.ru/spoken_besleney/ 
+            - text: "Кадарский даргинский язык"
+              href: http://lingconlab.ru/kadar_dargwa/
             - text: "Хакасский язык"
               href: http://lingconlab.ru/spoken_khakas/
             - text: "Луговой марийский язык"
@@ -83,6 +85,8 @@ navbar:
           href: https://linghub.ru/rutuldict/
         - text: "Тукитинский язык"
           href: http://lingconlab.ru/TukitaDict/
+        - text: "Даргинские языки"
+          href: http://lingconlab.ru/dargwa_dict/
     - text: "Другие проекты"
       menu:
         - text: "DagSwadesh"
